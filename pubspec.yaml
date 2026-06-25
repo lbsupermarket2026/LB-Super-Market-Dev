@@ -1,0 +1,32 @@
+name: bb_price
+description: Balaramayya Super Market - Quality Groceries, Right Around You.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Google Fonts (add Poppins via assets or use google_fonts package)
+  # To use google_fonts add: google_fonts: ^6.0.0 to dependencies
+
+  assets:
+    - assets/images/
+    - assets/logos/
+    - assets/banners/
+    - assets/categories/
+    - assets/products/
+    - assets/icons/
+    - assets/store/

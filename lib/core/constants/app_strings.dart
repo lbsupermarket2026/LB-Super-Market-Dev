@@ -1,0 +1,91 @@
+class AppStrings {
+  // Brand
+  static const String appName = 'Balaramayya Super Market';
+  static const String appTagline = 'Your trusted supermarket for everyday needs.';
+  static const String logoText = 'BALARAMAYYA';
+
+  // Navbar
+  static const String navHome = 'Home';
+  static const String navCatalog = 'Catalog';
+  static const String navOffers = 'Offers';
+  static const String navAbout = 'About Us';
+  static const String navContact = 'Contact';
+  static const String navCallUs = 'Call Us';
+  static const String navDownloadApp = 'Download App';
+
+  // Hero Section
+  static const String heroHeadline1 = 'Quality Groceries,';
+  static const String heroHeadline2 = 'Right Around You.';
+  static const String heroSubtitle =
+      'Your daily needs, our quality promise.\nExplore our catalog and shop smarter with\nBalaramayya Super Market.';
+  static const String heroBtnCatalog = 'Browse Catalog';
+  static const String heroBtnDownload = 'Download App';
+
+  // Features Bar
+  static const String feat1Title = 'Quality You Trust';
+  static const String feat1Sub = 'Carefully selected fresh products';
+  static const String feat2Title = 'Fast & Reliable Delivery';
+  static const String feat2Sub = 'On time, every time';
+  static const String feat3Title = 'Best Prices Everyday';
+  static const String feat3Sub = 'Great quality at great prices';
+  static const String feat4Title = 'Customer First';
+  static const String feat4Sub = 'We are here for your needs';
+
+  // Category Section
+  static const String categoryTitle = 'Shop by ';
+  static const String categoryTitleAccent = 'Category';
+
+  // App Promo Section
+  static const String promoHeadline1 = 'More Convenience.';
+  static const String promoHeadline2 = 'More Benefits.';
+  static const String promoSubtitle =
+      'Download our app for the best shopping experience, exclusive offers and more.';
+  static const String promoScanText = 'Scan to Download';
+
+  // About Section
+  static const String aboutTitle = 'About Us';
+  static const String aboutBody =
+      'Balaramayya Super Market is your trusted neighborhood store, committed to providing quality products, affordable prices and exceptional service. We believe in making your daily shopping easy, convenient and enjoyable. Thank you for being a part of our family.';
+
+  // Reviews Section
+  static const String reviewTitle = 'What Our ';
+  static const String reviewTitleAccent = 'Customers';
+  static const String reviewTitleEnd = ' Say';
+
+  // Contact Section
+  static const String visitTitle = 'Visit Our Store';
+  static const String storeName = 'Balaramayya Super Market';
+  static const String storeAddress =
+      'H.No. 12-3-45/1, Main Road,\nKukatpally, Hyderabad,\nTelangana - 500072';
+  static const String getDirections = 'Get Directions >';
+
+  static const String contactTitle = 'Contact Us';
+  static const String callUs = 'Call Us';
+  static const String whatsApp = 'WhatsApp';
+  static const String emailUs = 'Email Us';
+
+  // Footer
+  static const String footerTagline = 'Your trusted supermarket\nfor everyday needs.';
+  static const String quickLinks = 'Quick Links';
+  static const String customerService = 'Customer Service';
+  static const String downloadApp = 'Download App';
+  static const String footerFaq = 'FAQs';
+  static const String footerDelivery = 'Delivery Information';
+  static const String footerReturn = 'Return Policy';
+  static const String footerTerms = 'Terms & Conditions';
+  static const String footerPrivacy = 'Privacy Policy';
+  static const String footerCopyright =
+      '© 2026 Balaramayya Super Market. All rights reserved.';
+
+  // Contact Info
+  static const String phone = '+91 98765 43210';
+  static const String email = 'info@balaramayyasmart.com';
+  static const String mapsUrl =
+      'https://maps.google.com/?q=Kukatpally,Hyderabad';
+  static const String whatsappUrl = 'https://wa.me/919876543210';
+  static const String phoneUrl = 'tel:+919876543210';
+  static const String emailUrl = 'mailto:info@balaramayyasmart.com';
+  static const String playStoreUrl =
+      'https://play.google.com/store';
+  static const String appStoreUrl = 'https://apps.apple.com';
+}
