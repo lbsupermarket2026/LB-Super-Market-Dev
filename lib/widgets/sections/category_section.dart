@@ -20,7 +20,6 @@ class CategorySection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Section Title
           RichText(
             text: TextSpan(
               children: [
@@ -38,8 +37,6 @@ class CategorySection extends StatelessWidget {
               ],
             ),
           ),
-
-          // Green underline accent
           Container(
             margin: const EdgeInsets.only(top: 6, bottom: 32),
             width: 40,
@@ -47,23 +44,33 @@ class CategorySection extends StatelessWidget {
             color: AppColors.primary,
           ),
 
-          // Category Cards
-          SizedBox(
-            height: 210,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(bottom: 4),
-              itemCount: CategoryData.categories.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 16),
-              itemBuilder: (context, index) {
-                final cat = CategoryData.categories[index];
-                return CategoryCard(
-                  category: cat,
-                  onTap: () => Navigator.pushNamed(context, '/catalog'),
-                );
-              },
-            ),
-          ),
+          // Use Row with Expanded so cards spread across full width
+          isMobile
+              ? SizedBox(
+                  height: 225,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: CategoryData.categories.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 12),
+                    itemBuilder: (context, i) => CategoryCard(
+                      category: CategoryData.categories[i],
+                      onTap: () => Navigator.pushNamed(context, '/catalog'),
+                    ),
+                  ),
+                )
+              : Row(
+                  children: CategoryData.categories.map((cat) {
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: CategoryCard(
+                          category: cat,
+                          onTap: () => Navigator.pushNamed(context, '/catalog'),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
         ],
       ),
     );

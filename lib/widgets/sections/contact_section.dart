@@ -40,38 +40,38 @@ class _VisitStore extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Store Icon
-        Container(
-          width: 64,
-          height: 64,
-          decoration: BoxDecoration(
-            color: AppColors.dark,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Icon(Icons.store, color: AppColors.primary, size: 32),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: AppColors.dark,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(Icons.store, color: AppColors.primary, size: 28),
+            ),
+            const SizedBox(width: 14),
+            Text(AppStrings.visitTitle,
+                style: Theme.of(context).textTheme.titleMedium),
+          ],
         ),
-        const SizedBox(height: 16),
-
-        Text(AppStrings.visitTitle,
-            style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: 8),
-
+        const SizedBox(height: 14),
         Text(AppStrings.storeName,
             style: const TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textDark)),
+                fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textDark)),
         const SizedBox(height: 4),
-
         Text(AppStrings.storeAddress,
             style: const TextStyle(
-                fontSize: 13, color: AppColors.textGrey, height: 1.6)),
-        const SizedBox(height: 12),
-
+                fontSize: 12, color: AppColors.textGrey, height: 1.6)),
+        const SizedBox(height: 10),
         GestureDetector(
           onTap: UrlLauncherUtil.openMaps,
           child: const Text(
             AppStrings.getDirections,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 12,
               color: AppColors.primary,
               fontWeight: FontWeight.w600,
             ),
@@ -81,6 +81,7 @@ class _VisitStore extends StatelessWidget {
     );
   }
 }
+
 
 class _ContactInfo extends StatelessWidget {
   @override

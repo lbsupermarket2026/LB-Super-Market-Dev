@@ -44,7 +44,7 @@ class _WideFooterTop extends StatelessWidget {
       children: [
         // Brand Column
         Expanded(flex: 2, child: _BrandColumn()),
-        const SizedBox(width: 40),
+        const SizedBox(width: 24),
 
         // Quick Links
         Expanded(child: _LinksColumn(

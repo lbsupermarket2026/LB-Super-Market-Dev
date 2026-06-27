@@ -53,15 +53,15 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       AppAssets.logo,
-      height: 120,
+      height: 160,
       errorBuilder: (_, __, ___) => Column(
         children: const [
-          Icon(Icons.shopping_cart, color: AppColors.primary, size: 60),
+          Icon(Icons.shopping_cart, color: AppColors.primary, size: 80),
           SizedBox(height: 8),
           Text(AppStrings.logoText,
               style: TextStyle(
                   fontWeight: FontWeight.w800,
-                  fontSize: 14,
+                  fontSize: 16,
                   color: AppColors.textDark)),
         ],
       ),
@@ -74,7 +74,7 @@ class _AboutText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       AppStrings.aboutBody,
-      style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.8),
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.8, fontSize: 16),
       textAlign: TextAlign.justify,
     );
   }

@@ -17,7 +17,7 @@ class AppStrings {
   static const String heroHeadline1 = 'Quality Groceries,';
   static const String heroHeadline2 = 'Right Around You.';
   static const String heroSubtitle =
-      'Your daily needs, our quality promise.\nExplore our catalog and shop smarter with\nBalaramayya Super Market.';
+    'Fresh produce, everyday essentials, and unbeatable prices — all under one roof. Shop smarter with Balaramayya Super Market and enjoy quality you can trust, delivered right to your doorstep.'; 
   static const String heroBtnCatalog = 'Browse Catalog';
   static const String heroBtnDownload = 'Download App';
 

@@ -50,16 +50,28 @@ class ReviewsSection extends StatelessWidget {
           ),
 
           // Review Cards Carousel
-          SizedBox(
-            height: 200,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(bottom: 4),
-              itemCount: ReviewData.reviews.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 16),
-              itemBuilder: (context, index) =>
-                  ReviewCard(review: ReviewData.reviews[index]),
-            ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth > 700) {
+                return Row(
+                  children: ReviewData.reviews.map((r) => Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: ReviewCard(review: r),
+                    ),
+                  )).toList(),
+                );
+              }
+              return SizedBox(
+                height: 200,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: ReviewData.reviews.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 12),
+                  itemBuilder: (_, i) => ReviewCard(review: ReviewData.reviews[i]),
+                ),
+              );
+            },
           ),
         ],
       ),

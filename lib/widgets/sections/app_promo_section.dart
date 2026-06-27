@@ -30,52 +30,75 @@ class _DesktopPromo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 28),
       child: Row(
         children: [
-          // Phone mockup
-          Image.asset(AppAssets.appPromoPhone, height: 180,
-              errorBuilder: (_, __, ___) =>
-                  const Icon(Icons.phone_android, color: AppColors.primary, size: 80)),
-          const SizedBox(width: 32),
+          // Phone icon left
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              color: AppColors.primary.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: const Icon(Icons.phone_android, color: AppColors.primary, size: 40),
+          ),
+          const SizedBox(width: 24),
 
           // Text
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  AppStrings.promoHeadline1,
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.white,
-                  ),
-                ),
-                Text(
-                  AppStrings.promoHeadline2,
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.secondary,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  AppStrings.promoSubtitle,
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white.withOpacity(0.7),
-                      height: 1.5),
-                ),
+                Text(AppStrings.promoHeadline1,
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.white)),
+                Text(AppStrings.promoHeadline2,
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.secondary)),
+                const SizedBox(height: 8),
+                Text(AppStrings.promoSubtitle,
+                    style: TextStyle(
+                        fontSize: 13, color: Colors.white.withOpacity(0.65), height: 1.5)),
               ],
             ),
           ),
 
-          const SizedBox(width: 32),
+          const SizedBox(width: 24),
 
-          // QR + Badges
-          _AppDownloadWidget(),
+          // Right: QR then badges stacked
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Scan to Download',
+                  style: TextStyle(fontSize: 11, color: Colors.white60)),
+              const SizedBox(height: 8),
+              Container(
+                width: 80,
+                height: 80,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                child: Image.asset(AppAssets.qrCode,
+                    errorBuilder: (_, __, ___) =>
+                        const Icon(Icons.qr_code_2, size: 55, color: AppColors.dark)),
+              ),
+              const SizedBox(height: 10),
+              GestureDetector(
+                onTap: UrlLauncherUtil.openPlayStore,
+                child: Image.asset(AppAssets.googlePlay, height: 30,
+                    errorBuilder: (_, __, ___) => _Badge('Google Play')),
+              ),
+              const SizedBox(height: 6),
+              GestureDetector(
+                onTap: UrlLauncherUtil.openAppStore,
+                child: Image.asset(AppAssets.appStore, height: 30,
+                    errorBuilder: (_, __, ___) => _Badge('App Store')),
+              ),
+            ],
+          ),
         ],
       ),
     );

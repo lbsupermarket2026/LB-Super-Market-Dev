@@ -47,9 +47,9 @@ class FeaturesBar extends StatelessWidget {
                       if (!isLast)
                         Container(
                           width: 1,
-                          height: 48,
+                          height: 60  ,
                           color: Colors.white24,
-                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          // margin: const EdgeInsets.symmetric(horizontal: 12),
                         ),
                     ],
                   ),

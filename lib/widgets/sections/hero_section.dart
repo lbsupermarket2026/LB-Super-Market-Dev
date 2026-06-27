@@ -4,8 +4,6 @@ import '../../core/constants/app_strings.dart';
 import '../../core/constants/app_assets.dart';
 import '../../core/responsive/breakpoints.dart';
 import '../../app/router.dart';
-import '../buttons/primary_button.dart';
-import '../buttons/secondary_button.dart';
 import '../../core/utils/url_launcher.dart';
 
 class HeroSection extends StatelessWidget {
@@ -15,63 +13,69 @@ class HeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMobile = Breakpoints.isMobile(context);
 
-    return Container(
-      width: double.infinity,
-      constraints: const BoxConstraints(minHeight: 420),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFF0F4E8), Color(0xFFEFF6D9)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Stack(
-        children: [
-          // Green arc top-right
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
-              width: 320,
-              height: 320,
-              decoration: const BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(320),
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final w = constraints.maxWidth;
+        final arcSize = w * 0.32;
+        final orangeSize = w * 0.14;
+
+        return ClipRect(
+          child: Container(
+            width: double.infinity,
+            constraints: BoxConstraints(minHeight: isMobile ? 360 : 460),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFF0F4E8), Color(0xFFEFF6D9)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
-          ),
-
-          // Orange arc mid-right
-          Positioned(
-            top: 200,
-            right: 0,
-            child: Container(
-              width: 180,
-              height: 180,
-              decoration: const BoxDecoration(
-                color: AppColors.secondary,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(180),
-                  bottomLeft: Radius.circular(180),
+            child: Stack(
+              clipBehavior: Clip.hardEdge,
+              children: [
+                // Green quarter-circle — always fits top-right
+                Positioned(
+                  top: -arcSize * 0.1,
+                  right: -arcSize * 0.1,
+                  child: Container(
+                    width: arcSize,
+                    height: arcSize,
+                    decoration: const BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(999),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
 
-          // Content
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: isMobile ? 20 : 60,
-              vertical: 48,
+                // Orange circle — floats below the green arc
+                Positioned(
+                  top: arcSize * 0.65,
+                  right: arcSize * 0.05,
+                  child: Container(
+                    width: orangeSize,
+                    height: orangeSize,
+                    decoration: const BoxDecoration(
+                      color: AppColors.secondary,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+
+                // Content
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isMobile ? 24 : w * 0.06,
+                    vertical: isMobile ? 32 : 48,
+                  ),
+                  child: isMobile ? _MobileLayout() : _DesktopLayout(),
+                ),
+              ],
             ),
-            child: isMobile
-                ? _MobileLayout()
-                : _DesktopLayout(),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -103,13 +107,15 @@ class _MobileLayout extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.asset(
-          AppAssets.heroBasket,
-          fit: BoxFit.contain,
-          height: 220,
-          errorBuilder: (_, __, ___) => const SizedBox(height: 100),
+        Center(
+          child: Image.asset(
+            AppAssets.heroBasket,
+            fit: BoxFit.contain,
+            height: 200,
+            errorBuilder: (_, __, ___) => const SizedBox(height: 100),
+          ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 20),
         _HeroText(),
       ],
     );
@@ -119,58 +125,110 @@ class _MobileLayout extends StatelessWidget {
 class _HeroText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isMobile = Breakpoints.isMobile(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Main headline
         Text(
           AppStrings.heroHeadline1,
-          style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                color: AppColors.textDark,
-                fontSize: Breakpoints.isMobile(context) ? 30 : 44,
-              ),
+          style: TextStyle(
+            fontSize: isMobile ? 28 : 44,
+            fontWeight: FontWeight.w800,
+            color: AppColors.textDark,
+            height: 1.15,
+          ),
         ),
         Text(
           AppStrings.heroHeadline2,
-          style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                color: AppColors.secondary,
-                fontSize: Breakpoints.isMobile(context) ? 30 : 44,
-              ),
+          style: TextStyle(
+            fontSize: isMobile ? 28 : 44,
+            fontWeight: FontWeight.w800,
+            color: AppColors.secondary,
+            height: 1.15,
+          ),
         ),
-
         const SizedBox(height: 16),
-
-        // Subtitle
         Text(
           AppStrings.heroSubtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge
-              ?.copyWith(color: AppColors.textGrey),
+          style: TextStyle(
+            fontSize: isMobile ? 13 : 15,
+            color: const Color(0xFF555555),
+            height: 1.7,
+          ),
         ),
-
-        const SizedBox(height: 28),
-
-        // Action Buttons
+        const SizedBox(height: 32),
         Wrap(
           spacing: 12,
           runSpacing: 12,
           children: [
-            PrimaryButton(
+            _HeroBtn(
               label: AppStrings.heroBtnCatalog,
-              onPressed: () =>
-                  Navigator.pushNamed(context, AppRouter.catalog),
               icon: Icons.shopping_cart_outlined,
+              dark: true,
+              onTap: () => Navigator.pushNamed(context, AppRouter.catalog),
             ),
-            SecondaryButton(
+            _HeroBtn(
               label: AppStrings.heroBtnDownload,
-              onPressed: UrlLauncherUtil.openPlayStore,
-              icon: Icons.phone_android,
+              icon: Icons.phone_android_outlined,
+              dark: false,
+              onTap: UrlLauncherUtil.openPlayStore,
             ),
           ],
         ),
       ],
+    );
+  }
+}
+
+class _HeroBtn extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final bool dark;
+  final VoidCallback onTap;
+
+  const _HeroBtn({
+    required this.label,
+    required this.icon,
+    required this.dark,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+          decoration: BoxDecoration(
+            color: dark ? AppColors.dark : AppColors.primary,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: (dark ? AppColors.dark : AppColors.primary)
+                    .withOpacity(0.25),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(label,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14)),
+              const SizedBox(width: 8),
+              Icon(icon, color: Colors.white, size: 17),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
