@@ -151,7 +151,7 @@ class _ValuesSection extends StatelessWidget {
             crossAxisCount: isMobile ? 1 : 2,
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
-            childAspectRatio: isMobile ? 3.5 : 3,
+            childAspectRatio: isMobile ? 4.0: 4.5,
             children: _values
                 .map((v) => _ValueCard(icon: v.$1, title: v.$2, body: v.$3))
                 .toList(),

@@ -142,37 +142,35 @@ class _AppDownloadWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
-          AppStrings.promoScanText,
-          style: TextStyle(fontSize: 12, color: Colors.white70),
-        ),
+        const Text('Scan to Download',
+            style: TextStyle(fontSize: 11, color: Colors.white60)),
         const SizedBox(height: 8),
-        // QR Code
         Container(
-          width: 90,
-          height: 90,
+          width: 120,
+          height: 120,
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Image.asset(AppAssets.qrCode,
               errorBuilder: (_, __, ___) =>
-                  const Icon(Icons.qr_code_2, size: 60, color: AppColors.dark)),
+                  const Icon(Icons.qr_code_2, size: 90, color: AppColors.dark)),
         ),
-        const SizedBox(height: 12),
-        // Google Play
+        const SizedBox(height: 14),
         GestureDetector(
           onTap: UrlLauncherUtil.openPlayStore,
-          child: Image.asset(AppAssets.googlePlay, height: 32,
+          child: Image.asset(AppAssets.googlePlay, width: 130, height: 38,
+              fit: BoxFit.contain,
               errorBuilder: (_, __, ___) => _Badge('Google Play')),
         ),
         const SizedBox(height: 8),
-        // App Store
         GestureDetector(
           onTap: UrlLauncherUtil.openAppStore,
-          child: Image.asset(AppAssets.appStore, height: 32,
+          child: Image.asset(AppAssets.appStore, width: 130, height: 38,
+              fit: BoxFit.contain,
               errorBuilder: (_, __, ___) => _Badge('App Store')),
         ),
       ],

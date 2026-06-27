@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/responsive/breakpoints.dart';
-import '../../data/category_data.dart';
 import '../../data/product_data.dart';
-import '../../models/category_model.dart';
 import '../../widgets/common/navbar.dart';
 import '../../widgets/common/footer.dart';
 import '../../widgets/cards/product_card.dart';
@@ -89,26 +87,6 @@ class _ProductsPageState extends State<ProductsPage> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Category Filter Chips
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        _FilterChip(
-                          label: 'All',
-                          isSelected: _selectedCategory == 'all',
-                          onTap: () =>
-                              setState(() => _selectedCategory = 'all'),
-                        ),
-                        ...CategoryData.categories.map((cat) => _FilterChip(
-                              label: cat.name.replaceAll('\n', ' '),
-                              isSelected: _selectedCategory == cat.id,
-                              onTap: () =>
-                                  setState(() => _selectedCategory = cat.id),
-                            )),
-                      ],
-                    ),
-                  ),
 
                   const SizedBox(height: 24),
 

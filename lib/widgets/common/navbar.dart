@@ -30,8 +30,6 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
           if (!isNarrow) ...[
             // Nav Links
             _NavLink(AppStrings.navHome, AppRouter.home),
-            _NavLink(AppStrings.navCatalog, AppRouter.catalog),
-            _NavLink(AppStrings.navOffers, AppRouter.offers),
             _NavLink(AppStrings.navAbout, AppRouter.about),
             _NavLink(AppStrings.navContact, AppRouter.contact),
             const SizedBox(width: 16),
@@ -162,8 +160,6 @@ class _MobileMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final links = [
       (AppStrings.navHome, AppRouter.home),
-      (AppStrings.navCatalog, AppRouter.catalog),
-      (AppStrings.navOffers, AppRouter.offers),
       (AppStrings.navAbout, AppRouter.about),
       (AppStrings.navContact, AppRouter.contact),
     ];

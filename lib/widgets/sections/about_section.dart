@@ -53,10 +53,10 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       AppAssets.logo,
-      height: 160,
+      height: 180,
       errorBuilder: (_, __, ___) => Column(
         children: const [
-          Icon(Icons.shopping_cart, color: AppColors.primary, size: 80),
+          Icon(Icons.shopping_cart, color: AppColors.primary, size: 100),
           SizedBox(height: 8),
           Text(AppStrings.logoText,
               style: TextStyle(

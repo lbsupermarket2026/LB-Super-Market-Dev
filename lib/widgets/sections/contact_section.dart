@@ -25,9 +25,9 @@ class ContactSection extends StatelessWidget {
           : Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: _VisitStore()),
+                Expanded(flex: 2, child: _VisitStore()),
                 const SizedBox(width: 60),
-                Expanded(flex: 2, child: _ContactInfo()),
+                Expanded(flex: 3, child: _ContactInfo()),
               ],
             ),
     );

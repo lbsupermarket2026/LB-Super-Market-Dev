@@ -17,14 +17,10 @@ class Footer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
       child: Column(
         children: [
-          // Top row
           isNarrow ? _NarrowFooterTop() : _WideFooterTop(),
-
           const SizedBox(height: 32),
           const Divider(color: Colors.white24),
           const SizedBox(height: 16),
-
-          // Copyright
           Text(
             AppStrings.footerCopyright,
             style: const TextStyle(fontSize: 12, color: Colors.white54),
@@ -42,35 +38,9 @@ class _WideFooterTop extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Brand Column
         Expanded(flex: 2, child: _BrandColumn()),
-        const SizedBox(width: 24),
-
-        // Quick Links
-        Expanded(child: _LinksColumn(
-          title: AppStrings.quickLinks,
-          links: [
-            (AppStrings.navHome, AppRouter.home),
-            (AppStrings.navCatalog, AppRouter.catalog),
-            (AppStrings.navOffers, AppRouter.offers),
-            (AppStrings.navAbout, AppRouter.about),
-            (AppStrings.navContact, AppRouter.contact),
-          ],
-        )),
-
-        // Customer Service
-        Expanded(child: _TextColumn(
-          title: AppStrings.customerService,
-          items: [
-            AppStrings.footerFaq,
-            AppStrings.footerDelivery,
-            AppStrings.footerReturn,
-            AppStrings.footerTerms,
-            AppStrings.footerPrivacy,
-          ],
-        )),
-
-        // Download App
+        const SizedBox(width: 40),
+        Expanded(child: _QuickLinksColumn()),
         Expanded(child: _DownloadColumn()),
       ],
     );
@@ -85,6 +55,8 @@ class _NarrowFooterTop extends StatelessWidget {
       children: [
         _BrandColumn(),
         const SizedBox(height: 24),
+        _QuickLinksColumn(),
+        const SizedBox(height: 24),
         _DownloadColumn(),
       ],
     );
@@ -97,12 +69,44 @@ class _BrandColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.asset(AppAssets.logo, height: 44,
-            errorBuilder: (_, __, ___) => const Icon(
-                  Icons.shopping_cart,
-                  color: AppColors.primary,
-                  size: 36,
-                )),
+        Row(
+          children: [
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Center(
+                child: Text('BS',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 20,
+                        letterSpacing: 0.5)),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('BALARAMAYYA',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 13,
+                        letterSpacing: 1)),
+                Text('SUPER MARKET',
+                    style: TextStyle(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 9,
+                        letterSpacing: 2)),
+              ],
+            ),
+          ],
+        ),
         const SizedBox(height: 12),
         const Text(
           AppStrings.footerTagline,
@@ -123,53 +127,179 @@ class _BrandColumn extends StatelessWidget {
   }
 }
 
-class _LinksColumn extends StatelessWidget {
-  final String title;
-  final List<(String, String)> links;
-
-  const _LinksColumn({required this.title, required this.links});
-
+class _QuickLinksColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final navLinks = [
+      (AppStrings.navHome, AppRouter.home),
+      (AppStrings.navAbout, AppRouter.about),
+      (AppStrings.navContact, AppRouter.contact),
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _FooterHeading(title),
+        const _FooterHeading(AppStrings.quickLinks),
         const SizedBox(height: 12),
-        ...links.map((l) => Padding(
+        ...navLinks.map((l) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: GestureDetector(
                 onTap: () => Navigator.pushNamed(context, l.$2),
                 child: Text(l.$1,
-                    style: const TextStyle(
-                        fontSize: 12, color: Colors.white60)),
+                    style: const TextStyle(fontSize: 12, color: Colors.white60)),
               ),
             )),
+        GestureDetector(
+          onTap: () => _showFaqDialog(context),
+          child: const Text('FAQs',
+              style: TextStyle(fontSize: 12, color: Colors.white60)),
+        ),
       ],
     );
   }
-}
 
-class _TextColumn extends StatelessWidget {
-  final String title;
-  final List<String> items;
+  void _showFaqDialog(BuildContext context) {
+    const faqs = [
+      (
+        'Do you deliver?',
+        'Yes! We deliver within Kukatpally and nearby areas. Download our app to place a delivery order.'
+      ),
+      (
+        'What are your store hours?',
+        'We are open Monday to Saturday 8:00 AM – 9:00 PM, and Sunday 9:00 AM – 6:00 PM.'
+      ),
+      (
+        'How do I place an order?',
+        'You can visit us in-store, call us, WhatsApp us, or download our app to place orders easily.'
+      ),
+      (
+        'Do you accept returns?',
+        'Yes, we accept returns within 24 hours for fresh produce and within 3 days for packaged goods with a valid receipt.'
+      ),
+      (
+        'Is there a loyalty program?',
+        'Yes! Download our app to earn reward points on every purchase and redeem them for discounts.'
+      ),
+      (
+        'What payment methods do you accept?',
+        'We accept cash, UPI, credit/debit cards, and all major digital wallets.'
+      ),
+      (
+        'Do you offer bulk or wholesale orders?',
+        'Yes! Contact us via WhatsApp or call us directly for bulk order inquiries and special pricing.'
+      ),
+    ];
 
-  const _TextColumn({required this.title, required this.items});
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          width: 520,
+          constraints: const BoxConstraints(maxHeight: 600),
+          padding: const EdgeInsets.all(28),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Frequently Asked Questions',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w700)),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Container(width: 40, height: 3, color: AppColors.primary),
+              const SizedBox(height: 20),
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _FooterHeading(title),
-        const SizedBox(height: 12),
-        ...items.map((item) => Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(item,
-                  style:
-                      const TextStyle(fontSize: 12, color: Colors.white60)),
-            )),
-      ],
+              // FAQ list scrollable
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: faqs
+                        .map((f) => Padding(
+                              padding: const EdgeInsets.only(bottom: 18),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(top: 5),
+                                        width: 7,
+                                        height: 7,
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.primary,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(f.$1,
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight:
+                                                    FontWeight.w700,
+                                                color: AppColors.textDark)),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 17),
+                                    child: Text(f.$2,
+                                        style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.textGrey,
+                                            height: 1.6)),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 14),
+                                    child: Divider(height: 1),
+                                  ),
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ),
+              ),
+
+              // Bottom CTA
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    UrlLauncherUtil.openWhatsApp();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  icon: const Icon(Icons.chat, size: 16),
+                  label: const Text('Still have questions? WhatsApp us',
+                      style: TextStyle(fontWeight: FontWeight.w600)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -180,7 +310,7 @@ class _DownloadColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _FooterHeading(AppStrings.downloadApp),
+        const _FooterHeading(AppStrings.downloadApp),
         const SizedBox(height: 12),
         GestureDetector(
           onTap: UrlLauncherUtil.openPlayStore,

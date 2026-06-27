@@ -4,6 +4,7 @@ import '../../core/constants/app_strings.dart';
 import '../../core/responsive/breakpoints.dart';
 import '../../data/category_data.dart';
 import '../cards/category_card.dart';
+import '../../core/utils/url_launcher.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({super.key});
@@ -54,7 +55,7 @@ class CategorySection extends StatelessWidget {
                     separatorBuilder: (_, __) => const SizedBox(width: 12),
                     itemBuilder: (context, i) => CategoryCard(
                       category: CategoryData.categories[i],
-                      onTap: () => Navigator.pushNamed(context, '/catalog'),
+                      onTap: () => UrlLauncherUtil.openPlayStore(),
                     ),
                   ),
                 )

@@ -164,12 +164,6 @@ class _HeroText extends StatelessWidget {
           runSpacing: 12,
           children: [
             _HeroBtn(
-              label: AppStrings.heroBtnCatalog,
-              icon: Icons.shopping_cart_outlined,
-              dark: true,
-              onTap: () => Navigator.pushNamed(context, AppRouter.catalog),
-            ),
-            _HeroBtn(
               label: AppStrings.heroBtnDownload,
               icon: Icons.phone_android_outlined,
               dark: false,
