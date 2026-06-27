@@ -105,7 +105,7 @@ class CategoryCard extends StatelessWidget {
                 width: double.infinity,
                 height: 110,
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => Container(
+                  errorBuilder: (_, __, ___) => Container(
                   height: 110,
                   color: AppColors.background,
                   child: const Icon(Icons.image_not_supported, color: AppColors.textLight),

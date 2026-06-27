@@ -14,17 +14,34 @@ class Footer extends StatelessWidget {
 
     return Container(
       color: AppColors.dark,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
       child: Column(
         children: [
           isNarrow ? _NarrowFooterTop() : _WideFooterTop(),
           const SizedBox(height: 32),
           const Divider(color: Colors.white24),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           Text(
             AppStrings.footerCopyright,
             style: const TextStyle(fontSize: 12, color: Colors.white54),
             textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 6),
+          GestureDetector(
+            onTap: UrlLauncherUtil.openMatric,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: const Text(
+                'Developed by Matric Services',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.white38,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.white38,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ],
       ),
@@ -38,9 +55,39 @@ class _WideFooterTop extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Brand
         Expanded(flex: 2, child: _BrandColumn()),
         const SizedBox(width: 40),
-        Expanded(child: _QuickLinksColumn()),
+
+        // Quick Links
+        Expanded(
+          child: _FooterLinksColumn(
+            title: 'Quick Links',
+            children: [
+              _FooterNavLink('Home', AppRouter.home),
+              _FooterNavLink('Catalog', AppRouter.catalog, redirectToApp: true),
+              _FooterNavLink('Offers', AppRouter.offers, redirectToApp: true),
+              _FooterNavLink('About Us', AppRouter.about),
+              _FooterNavLink('Contact', AppRouter.contact),
+            ],
+          ),
+        ),
+
+        // Customer Service
+        Expanded(
+          child: _FooterLinksColumn(
+            title: 'Customer Service',
+            children: [
+              _FooterFaqLink(),
+              _FooterTextItem('Delivery Information'),
+              _FooterTextItem('Return Policy'),
+              _FooterTextItem('Terms & Conditions'),
+              _FooterTextItem('Privacy Policy'),
+            ],
+          ),
+        ),
+
+        // Download App
         Expanded(child: _DownloadColumn()),
       ],
     );
@@ -55,8 +102,16 @@ class _NarrowFooterTop extends StatelessWidget {
       children: [
         _BrandColumn(),
         const SizedBox(height: 24),
-        _QuickLinksColumn(),
-        const SizedBox(height: 24),
+        _FooterLinksColumn(
+          title: 'Quick Links',
+          children: [
+            _FooterNavLink('Home', AppRouter.home),
+            _FooterNavLink('About Us', AppRouter.about),
+            _FooterNavLink('Contact', AppRouter.contact),
+            _FooterFaqLink(),
+          ],
+        ),
+        const SizedBox(height: 16),
         _DownloadColumn(),
       ],
     );
@@ -69,56 +124,61 @@ class _BrandColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Logo
         Row(
           children: [
-            Container(
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Center(
-                child: Text('BS',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                        letterSpacing: 0.5)),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('BALARAMAYYA',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 13,
-                        letterSpacing: 1)),
-                Text('SUPER MARKET',
-                    style: TextStyle(
+            Image.asset('assets/logos/bs_logo.png', height: 52,
+                errorBuilder: (_, __, ___) => Row(
+                  children: [
+                    Container( 
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
                         color: AppColors.primary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 9,
-                        letterSpacing: 2)),
-              ],
-            ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: Text('BS',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 18)),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('BALARAMAYYA',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 12,
+                                letterSpacing: 1)),
+                        Text('SUPER MARKET',
+                            style: TextStyle(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 8,
+                                letterSpacing: 2)),
+                      ],
+                    ),
+                  ],
+                )),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 6),
         const Text(
-          AppStrings.footerTagline,
+          'Your trusted supermarket\nfor everyday needs.',
           style: TextStyle(fontSize: 12, color: Colors.white60, height: 1.6),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 10),
         Row(
           children: [
-            _SocialIcon(Icons.facebook, () {}),
-            const SizedBox(width: 12),
-            _SocialIcon(Icons.camera_alt, () {}),
-            const SizedBox(width: 12),
+            _SocialIcon(Icons.facebook, UrlLauncherUtil.openFacebook),
+            const SizedBox(width: 10),
+            _SocialIcon(Icons.camera_alt_outlined, UrlLauncherUtil.openInstagram),
+            const SizedBox(width: 10),
             _SocialIcon(Icons.chat, UrlLauncherUtil.openWhatsApp),
           ],
         ),
@@ -127,67 +187,100 @@ class _BrandColumn extends StatelessWidget {
   }
 }
 
-class _QuickLinksColumn extends StatelessWidget {
+// Generic column with title + children
+class _FooterLinksColumn extends StatelessWidget {
+  final String title;
+  final List<Widget> children;
+
+  const _FooterLinksColumn({required this.title, required this.children});
+
   @override
   Widget build(BuildContext context) {
-    final navLinks = [
-      (AppStrings.navHome, AppRouter.home),
-      (AppStrings.navAbout, AppRouter.about),
-      (AppStrings.navContact, AppRouter.contact),
-    ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _FooterHeading(AppStrings.quickLinks),
-        const SizedBox(height: 12),
-        ...navLinks.map((l) => Padding(
+        Text(title,
+            style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: Colors.white)),
+        const SizedBox(height: 14),
+        ...children.map((c) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, l.$2),
-                child: Text(l.$1,
-                    style: const TextStyle(fontSize: 12, color: Colors.white60)),
-              ),
+              child: c,
             )),
-        GestureDetector(
-          onTap: () => _showFaqDialog(context),
-          child: const Text('FAQs',
-              style: TextStyle(fontSize: 12, color: Colors.white60)),
-        ),
       ],
+    );
+  }
+}
+
+class _FooterNavLink extends StatelessWidget {
+  final String label;
+  final String route;
+  final bool redirectToApp;
+  const _FooterNavLink(this.label, this.route, {this.redirectToApp = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => redirectToApp
+          ? UrlLauncherUtil.openPlayStore()
+          : Navigator.pushNamed(context, route),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Text(label,
+            style: const TextStyle(fontSize: 12, color: Colors.white60)),
+      ),
+    );
+  }
+}
+
+class _FooterTextItem extends StatelessWidget {
+  final String label;
+  const _FooterTextItem(this.label);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: UrlLauncherUtil.openPlayStore,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Text(label,
+            style: const TextStyle(fontSize: 12, color: Colors.white60)),
+      ),
+    );
+  }
+}
+
+class _FooterFaqLink extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _showFaqDialog(context),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: const Text('FAQs',
+            style: TextStyle(fontSize: 12, color: Colors.white60)),
+      ),
     );
   }
 
   void _showFaqDialog(BuildContext context) {
     const faqs = [
-      (
-        'Do you deliver?',
-        'Yes! We deliver within Kukatpally and nearby areas. Download our app to place a delivery order.'
-      ),
-      (
-        'What are your store hours?',
-        'We are open Monday to Saturday 8:00 AM – 9:00 PM, and Sunday 9:00 AM – 6:00 PM.'
-      ),
-      (
-        'How do I place an order?',
-        'You can visit us in-store, call us, WhatsApp us, or download our app to place orders easily.'
-      ),
-      (
-        'Do you accept returns?',
-        'Yes, we accept returns within 24 hours for fresh produce and within 3 days for packaged goods with a valid receipt.'
-      ),
-      (
-        'Is there a loyalty program?',
-        'Yes! Download our app to earn reward points on every purchase and redeem them for discounts.'
-      ),
-      (
-        'What payment methods do you accept?',
-        'We accept cash, UPI, credit/debit cards, and all major digital wallets.'
-      ),
-      (
-        'Do you offer bulk or wholesale orders?',
-        'Yes! Contact us via WhatsApp or call us directly for bulk order inquiries and special pricing.'
-      ),
+      ('Do you deliver?',
+          'Yes! We deliver within Kukatpally and nearby areas. Download our app to place a delivery order.'),
+      ('What are your store hours?',
+          'We are open Monday to Saturday 8:00 AM – 9:00 PM, and Sunday 9:00 AM – 6:00 PM.'),
+      ('How do I place an order?',
+          'You can visit us in-store, call us, WhatsApp us, or download our app to place orders easily.'),
+      ('Do you accept returns?',
+          'Yes, we accept returns within 24 hours for fresh produce and within 3 days for packaged goods with a valid receipt.'),
+      ('Is there a loyalty program?',
+          'Yes! Download our app to earn reward points on every purchase and redeem them for discounts.'),
+      ('What payment methods do you accept?',
+          'We accept cash, UPI, credit/debit cards, and all major digital wallets.'),
+      ('Do you offer bulk or wholesale orders?',
+          'Yes! Contact us via WhatsApp or call us directly for bulk order inquiries and special pricing.'),
     ];
 
     showDialog(
@@ -202,7 +295,6 @@ class _QuickLinksColumn extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -215,11 +307,8 @@ class _QuickLinksColumn extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 4),
               Container(width: 40, height: 3, color: AppColors.primary),
               const SizedBox(height: 20),
-
-              // FAQ list scrollable
               Flexible(
                 child: SingleChildScrollView(
                   child: Column(
@@ -234,8 +323,7 @@ class _QuickLinksColumn extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        margin:
-                                            const EdgeInsets.only(top: 5),
+                                        margin: const EdgeInsets.only(top: 5),
                                         width: 7,
                                         height: 7,
                                         decoration: const BoxDecoration(
@@ -248,16 +336,14 @@ class _QuickLinksColumn extends StatelessWidget {
                                         child: Text(f.$1,
                                             style: const TextStyle(
                                                 fontSize: 13,
-                                                fontWeight:
-                                                    FontWeight.w700,
+                                                fontWeight: FontWeight.w700,
                                                 color: AppColors.textDark)),
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 5),
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 17),
+                                    padding: const EdgeInsets.only(left: 17),
                                     child: Text(f.$2,
                                         style: const TextStyle(
                                             fontSize: 12,
@@ -275,8 +361,6 @@ class _QuickLinksColumn extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Bottom CTA
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
@@ -310,27 +394,35 @@ class _DownloadColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _FooterHeading(AppStrings.downloadApp),
-        const SizedBox(height: 12),
+        const Text('Download App',
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: Colors.white)),
+        const SizedBox(height: 14),
         GestureDetector(
           onTap: UrlLauncherUtil.openPlayStore,
-          child: Image.asset(AppAssets.googlePlay, height: 36,
-              errorBuilder: (_, __, ___) => _StoreButton('Google Play')),
+          child: Image.asset(AppAssets.googlePlay,
+              height: 38,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => _StoreBtn('Google Play')),
         ),
         const SizedBox(height: 10),
         GestureDetector(
           onTap: UrlLauncherUtil.openAppStore,
-          child: Image.asset(AppAssets.appStore, height: 36,
-              errorBuilder: (_, __, ___) => _StoreButton('App Store')),
+          child: Image.asset(AppAssets.appStore,
+              height: 38,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => _StoreBtn('App Store')),
         ),
       ],
     );
   }
 }
 
-class _StoreButton extends StatelessWidget {
+class _StoreBtn extends StatelessWidget {
   final String label;
-  const _StoreButton(this.label);
+  const _StoreBtn(this.label);
 
   @override
   Widget build(BuildContext context) {
@@ -341,24 +433,7 @@ class _StoreButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(label,
-          style: const TextStyle(color: AppColors.white, fontSize: 12)),
-    );
-  }
-}
-
-class _FooterHeading extends StatelessWidget {
-  final String text;
-  const _FooterHeading(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.w700,
-        color: AppColors.white,
-      ),
+          style: const TextStyle(color: Colors.white, fontSize: 12)),
     );
   }
 }
@@ -379,7 +454,7 @@ class _SocialIcon extends StatelessWidget {
           color: Colors.white12,
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Icon(icon, color: AppColors.white, size: 16),
+        child: Icon(icon, color: Colors.white, size: 16),
       ),
     );
   }
