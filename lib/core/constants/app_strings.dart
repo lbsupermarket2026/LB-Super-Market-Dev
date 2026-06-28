@@ -56,7 +56,7 @@ class AppStrings {
   static const String visitTitle = 'Visit Our Store';
   static const String storeName = 'Balaramayya Super Market';
   static const String storeAddress =
-      'H.No. 12-3-45/1, Main Road,\nKukatpally, Hyderabad,\nTelangana - 500072';
+      '1-77-1, Sector 3, MVP Double Road,\nMVP Colony, Visakhapatnam';
   static const String getDirections = 'Get Directions >';
 
   static const String contactTitle = 'Contact Us';
@@ -78,12 +78,12 @@ class AppStrings {
       '© 2026 Balaramayya Super Market. All rights reserved.';
 
   // Contact Info
-  static const String phone = '+91 98765 43210';
+  static const String phone = '+91 98855 45708';
   static const String email = 'info@balaramayyasmart.com';
   static const String mapsUrl =
-      'https://maps.google.com/?q=Kukatpally,Hyderabad';
-  static const String whatsappUrl = 'https://wa.me/919876543210';
-  static const String phoneUrl = 'tel:+919876543210';
+      'https://www.google.com/maps/place/Ladi+Balaramayya+Supermarket/@17.7420236,83.3296416,17z/data=!3m1!4b1!4m6!3m5!1s0x3a3943dcedf66375:0x48c666d859ee8be9!8m2!3d17.7420236!4d83.3322165!16s%2Fg%2F11yy0r031x?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D';
+  static const String whatsappUrl = 'https://wa.me/919885545708';
+  static const String phoneUrl = 'tel:+919885545708';
   static const String emailUrl = 'mailto:info@balaramayyasmart.com';
   static const String playStoreUrl =
       'https://play.google.com/store';
