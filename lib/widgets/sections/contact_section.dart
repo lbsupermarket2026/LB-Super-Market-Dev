@@ -121,7 +121,7 @@ class _ContactInfo extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 _ContactTile(
-                  icon: Icons.chat,
+                  imagePath: 'assets/icons/whatsapp.png',
                   title: AppStrings.whatsApp,
                   value: AppStrings.phone,
                   onTap: UrlLauncherUtil.openWhatsApp,
@@ -145,12 +145,14 @@ class _ContactInfo extends StatelessWidget {
                 onTap: UrlLauncherUtil.callPhone,
               )),
               const SizedBox(width: 12),
-              Expanded(child: _ContactTile(
-                icon: Icons.chat,
-                title: AppStrings.whatsApp,
-                value: AppStrings.phone,
-                onTap: UrlLauncherUtil.openWhatsApp,
-              )),
+              Expanded(
+                child: _ContactTile(
+                  imagePath: 'assets/icons/whatsapp.png',
+                  title: AppStrings.whatsApp,
+                  value: AppStrings.phone,
+                  onTap: UrlLauncherUtil.openWhatsApp,
+                ),
+              ),
               const SizedBox(width: 12),
               Expanded(child: _ContactTile(
                 icon: Icons.email_outlined,
@@ -168,13 +170,16 @@ class _ContactInfo extends StatelessWidget {
 }
 
 class _ContactTile extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
+  final String? imagePath;
   final String title;
   final String value;
   final VoidCallback onTap;
 
   const _ContactTile({
-    required this.icon,
+    super.key,
+    this.icon,
+    this.imagePath,
     required this.title,
     required this.value,
     required this.onTap,
@@ -197,23 +202,44 @@ class _ContactTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: AppColors.divider),
               ),
-              child: Icon(icon, color: AppColors.primary, size: 20),
+              
+              child: imagePath != null
+                ? Center(
+                    child: Image.asset(
+                      imagePath!,
+                      width: 62,   // Increase this value
+                      height: 62,  // Increase this value
+                      fit: BoxFit.contain,
+                    ),
+                  )
+                  : Icon(
+                      icon,
+                      color: AppColors.primary,
+                      size: 20,
+                    ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textDark)),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textDark,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text(value,
-                      style: const TextStyle(
-                          fontSize: 11, color: AppColors.textGrey),
-                      overflow: TextOverflow.ellipsis),
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppColors.textGrey,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),

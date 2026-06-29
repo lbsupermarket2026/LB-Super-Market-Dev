@@ -46,13 +46,13 @@ class _ContactPageState extends State<ContactPage> {
             Container(
               width: double.infinity,
               color: AppColors.dark,
-              padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Contact Us',
                       style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 28,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white)),
                   const SizedBox(height: 6),
@@ -72,7 +72,7 @@ class _ContactPageState extends State<ContactPage> {
                   ? Column(
                       children: [
                         _ContactInfoPanel(),
-                        const SizedBox(height: 32),
+                        const SizedBox(height: 42),
                         _ContactForm(
                           nameCtrl: _nameCtrl,
                           phoneCtrl: _phoneCtrl,
@@ -108,13 +108,18 @@ class _ContactPageState extends State<ContactPage> {
 }
 
 class _ContactInfoPanel extends StatelessWidget {
+  const _ContactInfoPanel({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Get In Touch',
-            style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          'Get In Touch',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+
         Container(
           margin: const EdgeInsets.only(top: 6, bottom: 20),
           width: 40,
@@ -128,21 +133,27 @@ class _ContactInfoPanel extends StatelessWidget {
           value: '${AppStrings.storeName}\n${AppStrings.storeAddress}',
           onTap: UrlLauncherUtil.openMaps,
         ),
+
         const SizedBox(height: 16),
+
         _InfoTile(
           icon: Icons.phone_outlined,
           title: AppStrings.callUs,
           value: AppStrings.phone,
           onTap: UrlLauncherUtil.callPhone,
         ),
+
         const SizedBox(height: 16),
+
         _InfoTile(
-          icon: Icons.chat_outlined,
+          imagePath: 'assets/icons/whatsapp.png',
           title: AppStrings.whatsApp,
           value: AppStrings.phone,
           onTap: UrlLauncherUtil.openWhatsApp,
         ),
+
         const SizedBox(height: 16),
+
         _InfoTile(
           icon: Icons.email_outlined,
           title: AppStrings.emailUs,
@@ -152,28 +163,41 @@ class _ContactInfoPanel extends StatelessWidget {
 
         const SizedBox(height: 28),
 
-        // Working Hours
-        Text('Working Hours',
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall
-                ?.copyWith(color: AppColors.textDark)),
+        Text(
+          'Working Hours',
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall
+              ?.copyWith(color: AppColors.textDark),
+        ),
+
         const SizedBox(height: 10),
-        const _HoursRow('Monday – Saturday', '8:00 AM – 9:00 PM'),
-        const _HoursRow('Sunday', '9:00 AM – 6:00 PM'),
+
+        const _HoursRow(
+          'Monday – Saturday',
+          '8:00 AM – 9:00 PM',
+        ),
+
+        const _HoursRow(
+          'Sunday',
+          '9:00 AM – 6:00 PM',
+        ),
       ],
     );
   }
 }
 
 class _InfoTile extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
+  final String? imagePath;
   final String title;
   final String value;
   final VoidCallback onTap;
 
   const _InfoTile({
-    required this.icon,
+    super.key,
+    this.icon,
+    this.imagePath,
     required this.title,
     required this.value,
     required this.onTap,
@@ -187,27 +211,47 @@ class _InfoTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 44,
-            height: 44,
+            width: 42,
+            height: 42,
             decoration: BoxDecoration(
               color: AppColors.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, color: AppColors.primary, size: 20),
+            child: Center(
+              child: imagePath != null
+                  ? Image.asset(
+                      imagePath!,
+                      width: 24,
+                      height: 24,
+                      fit: BoxFit.contain,
+                    )
+                  : Icon(
+                      icon,
+                      color: AppColors.primary,
+                      size: 20,
+                    ),
+            ),
           ),
           const SizedBox(width: 14),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textDark)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textDark,
+                ),
+              ),
               const SizedBox(height: 3),
-              Text(value,
-                  style: const TextStyle(
-                      fontSize: 13, color: AppColors.primary)),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.primary,
+                ),
+              ),
             ],
           ),
         ],
@@ -215,7 +259,6 @@ class _InfoTile extends StatelessWidget {
     );
   }
 }
-
 class _HoursRow extends StatelessWidget {
   final String day;
   final String hours;
@@ -304,7 +347,11 @@ class _ContactForm extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
               ),
-              icon: const Icon(Icons.chat, size: 18),
+             icon: Image.asset(
+              'assets/icons/whatsapp.png',
+              width: 20,
+              height: 20,
+            ),
               label: const Text(
                 'Send via WhatsApp',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),

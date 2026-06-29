@@ -81,8 +81,8 @@ class _WhatsAppFabState extends State<_WhatsAppFab>
           },
           onTapCancel: () => _controller.reverse(),
           child: Container(
-            width: 56,
-            height: 56,
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(
               color: const Color(0xFF25D366),
               shape: BoxShape.circle,
@@ -95,11 +95,8 @@ class _WhatsAppFabState extends State<_WhatsAppFab>
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: SvgPicture.asset(
-                'assets/icons/whatsapp.svg',
-                colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-              ),
+              padding: const EdgeInsets.all(1),
+              child: Image.asset('assets/icons/whatsapp.png'),
             ),
             ),
           ),
