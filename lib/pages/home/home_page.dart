@@ -10,6 +10,7 @@ import '../../widgets/sections/reviews_section.dart';
 import '../../widgets/sections/contact_section.dart';
 import '../../core/utils/url_launcher.dart';
 import '../../core/constants/app_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -93,10 +94,16 @@ class _WhatsAppFabState extends State<_WhatsAppFab>
                 ),
               ],
             ),
-            child: const Icon(Icons.chat, color: Colors.white, size: 28),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: SvgPicture.asset(
+                'assets/icons/whatsapp.svg',
+                colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              ),
+            ),
+            ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -21,8 +21,8 @@ class FeaturesBar extends StatelessWidget {
     return Container(
       color: AppColors.dark,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 20 : 48,
-        vertical: 24,
+        horizontal: isMobile ? 16 : 48,
+        vertical: isMobile ? 16 : 24,
       ),
       child: isMobile
           ? Column(

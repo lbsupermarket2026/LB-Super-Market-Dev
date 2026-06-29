@@ -14,7 +14,9 @@ class Footer extends StatelessWidget {
 
     return Container(
       color: AppColors.dark,
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      padding: EdgeInsets.symmetric(horizontal: isNarrow ? 20 : 40,
+        vertical: 32,
+      ),
       child: Column(
         children: [
           isNarrow ? _NarrowFooterTop() : _WideFooterTop(),

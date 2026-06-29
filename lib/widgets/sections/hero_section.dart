@@ -22,7 +22,7 @@ class HeroSection extends StatelessWidget {
         return ClipRect(
           child: Container(
             width: double.infinity,
-            constraints: BoxConstraints(minHeight: isMobile ? 360 : 460),
+            constraints: BoxConstraints(minHeight: isMobile ? 480 : 460),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0xFFF0F4E8), Color(0xFFEFF6D9)],
@@ -111,11 +111,11 @@ class _MobileLayout extends StatelessWidget {
           child: Image.asset(
             AppAssets.heroBasket,
             fit: BoxFit.contain,
-            height: 200,
-            errorBuilder: (_, __, ___) => const SizedBox(height: 100),
+            height: 160,
+            errorBuilder: (_, __, ___) => const SizedBox(height: 120),
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 16),
         _HeroText(),
       ],
     );

@@ -11,7 +11,7 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // width: 220,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
@@ -39,7 +39,7 @@ class ReviewCard extends StatelessWidget {
           Text(
             review.reviewText,
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 12,
               color: AppColors.textGrey,
               height: 1.5,
             ),

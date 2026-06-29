@@ -14,7 +14,7 @@ class CategorySection extends StatefulWidget {
 }
 
 class _CategorySectionState extends State<CategorySection> {
-  late PageController _pageController;
+  PageController? _pageController;
   late Timer _timer;
   int _currentPage = 0;
 
@@ -26,21 +26,29 @@ class _CategorySectionState extends State<CategorySection> {
 
   int get _initialPage => CategoryData.categories.length;
 
+  void _initController(bool isMobile) {
+    _pageController?.dispose();
+    _pageController = PageController(
+      initialPage: _initialPage,
+      viewportFraction: isMobile ? 0.48 : 0.21,
+    );
+    _currentPage = _initialPage;
+  }
+
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(
-      initialPage: _initialPage,
-      viewportFraction: 0.21,
-    );
-    _currentPage = _initialPage;
-    _startTimer();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final isMobile = MediaQuery.of(context).size.width < 600;
+      setState(() => _initController(isMobile));
+      _startTimer();
+    });
   }
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 5), (_) {
       if (!mounted) return;
-      _pageController.animateToPage(
+      _pageController?.animateToPage(
         _currentPage + 1,
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
@@ -50,7 +58,7 @@ class _CategorySectionState extends State<CategorySection> {
 
   void _prev() {
     _timer.cancel();
-    _pageController.animateToPage(
+    _pageController?.animateToPage(
       _currentPage - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
@@ -60,7 +68,7 @@ class _CategorySectionState extends State<CategorySection> {
 
   void _next() {
     _timer.cancel();
-    _pageController.animateToPage(
+    _pageController?.animateToPage(
       _currentPage + 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
@@ -74,14 +82,14 @@ class _CategorySectionState extends State<CategorySection> {
     if (index == 0) {
       Future.delayed(const Duration(milliseconds: 10), () {
         if (mounted) {
-          _pageController.jumpToPage(len);
+          _pageController?.jumpToPage(len);
           setState(() => _currentPage = len);
         }
       });
     } else if (index == _items.length - 1) {
       Future.delayed(const Duration(milliseconds: 10), () {
         if (mounted) {
-          _pageController.jumpToPage(len - 1);
+          _pageController?.jumpToPage(len - 1);
           setState(() => _currentPage = len - 1);
         }
       });
@@ -147,7 +155,7 @@ class _CategorySectionState extends State<CategorySection> {
   @override
   void dispose() {
     _timer.cancel();
-    _pageController.dispose();
+    _pageController?.dispose();
     super.dispose();
   }
 
@@ -155,15 +163,18 @@ class _CategorySectionState extends State<CategorySection> {
   Widget build(BuildContext context) {
     final isMobile = Breakpoints.isMobile(context);
 
+    if (_pageController == null) {
+      return const SizedBox(height: 260);
+    }
+
     return Container(
       color: AppColors.white,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 12 : 48,
+        horizontal: isMobile ? 8 : 48,
         vertical: 48,
       ),
       child: Column(
         children: [
-          // Title
           RichText(
             text: TextSpan(
               children: [
@@ -188,22 +199,20 @@ class _CategorySectionState extends State<CategorySection> {
             color: AppColors.primary,
           ),
 
-          // Carousel with arrows
           Row(
             children: [
               _ArrowBtn(icon: Icons.chevron_left, onTap: _prev),
-
               Expanded(
                 child: SizedBox(
-                  height: 260,
+                  height: isMobile ? 200 : 260,
                   child: PageView.builder(
-                    controller: _pageController,
+                    controller: _pageController!,
                     itemCount: _items.length,
                     onPageChanged: _onPageChanged,
                     itemBuilder: (_, i) {
                       final cat = _items[i];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: GestureDetector(
                           onTap: () => Breakpoints.isDesktop(context)
                               ? _showQrDialog(context)
@@ -233,44 +242,44 @@ class _CategorySectionState extends State<CategorySection> {
                                     child: Image.asset(
                                       cat.imagePath,
                                       width: double.infinity,
-                                      height: 140,
+                                      height: isMobile ? 90 : 140,
                                       fit: BoxFit.contain,
                                       errorBuilder: (_, __, ___) => Container(
-                                        height: 140,
+                                        height: isMobile ? 90 : 140,
                                         color: AppColors.background,
                                         child: const Icon(
                                             Icons.shopping_basket_outlined,
                                             color: AppColors.primary,
-                                            size: 40),
+                                            size: 36),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 8),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
                                     child: Text(
                                       cat.name,
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 12,
+                                      style: TextStyle(
+                                        fontSize: isMobile ? 10 : 12,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.textDark,
                                         height: 1.3,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 8),
                                   Container(
-                                    width: 30,
-                                    height: 30,
+                                    width: 26,
+                                    height: 26,
                                     decoration: const BoxDecoration(
                                       color: AppColors.dark,
                                       shape: BoxShape.circle,
                                     ),
                                     child: const Icon(Icons.arrow_forward,
-                                        color: AppColors.white, size: 15),
+                                        color: AppColors.white, size: 13),
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 8),
                                 ],
                               ),
                             ),
@@ -281,7 +290,6 @@ class _CategorySectionState extends State<CategorySection> {
                   ),
                 ),
               ),
-
               _ArrowBtn(icon: Icons.chevron_right, onTap: _next),
             ],
           ),
@@ -304,8 +312,8 @@ class _ArrowBtn extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: 36,
-          height: 36,
+          width: 32,
+          height: 32,
           decoration: BoxDecoration(
             color: AppColors.white,
             shape: BoxShape.circle,
@@ -317,7 +325,7 @@ class _ArrowBtn extends StatelessWidget {
               ),
             ],
           ),
-          child: Icon(icon, color: AppColors.textDark, size: 22),
+          child: Icon(icon, color: AppColors.textDark, size: 20),
         ),
       ),
     );

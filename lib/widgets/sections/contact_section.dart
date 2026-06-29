@@ -30,7 +30,7 @@ class ContactSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: _VisitStore()),
-                const SizedBox(width: 48),
+                const SizedBox(width: 24),
                 Expanded(flex: 2, child: _ContactInfo()),
               ],
             ),
@@ -107,37 +107,62 @@ class _ContactInfo extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 color: AppColors.textDark)),
         const SizedBox(height: 20),
-        Row(
-          children: [
-            Expanded(
-              child: _ContactTile(
+        LayoutBuilder(
+        builder: (context, constraints) {
+          final isMobile = constraints.maxWidth < 500;
+          if (isMobile) {
+            return Column(
+              children: [
+                _ContactTile(
+                  icon: Icons.phone,
+                  title: AppStrings.callUs,
+                  value: AppStrings.phone,
+                  onTap: UrlLauncherUtil.callPhone,
+                ),
+                const SizedBox(height: 10),
+                _ContactTile(
+                  icon: Icons.chat,
+                  title: AppStrings.whatsApp,
+                  value: AppStrings.phone,
+                  onTap: UrlLauncherUtil.openWhatsApp,
+                ),
+                const SizedBox(height: 10),
+                _ContactTile(
+                  icon: Icons.email_outlined,
+                  title: AppStrings.emailUs,
+                  value: AppStrings.email,
+                  onTap: UrlLauncherUtil.sendEmail,
+                ),
+              ],
+            );
+          }
+          return Row(
+            children: [
+              Expanded(child: _ContactTile(
                 icon: Icons.phone,
                 title: AppStrings.callUs,
                 value: AppStrings.phone,
                 onTap: UrlLauncherUtil.callPhone,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _ContactTile(
+              )),
+              const SizedBox(width: 12),
+              Expanded(child: _ContactTile(
                 icon: Icons.chat,
                 title: AppStrings.whatsApp,
                 value: AppStrings.phone,
                 onTap: UrlLauncherUtil.openWhatsApp,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _ContactTile(
+              )),
+              const SizedBox(width: 12),
+              Expanded(child: _ContactTile(
                 icon: Icons.email_outlined,
                 title: AppStrings.emailUs,
                 value: AppStrings.email,
                 onTap: UrlLauncherUtil.sendEmail,
-              ),
-            ),
-          ],
-        ),
-      ],
+              )),
+            ],
+          );
+        },
+      ),
+  ],
     );
   }
 }
