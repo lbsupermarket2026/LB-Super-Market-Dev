@@ -22,16 +22,18 @@ class FeaturesBar extends StatelessWidget {
       color: AppColors.dark,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 16 : 48,
-        vertical: isMobile ? 16 : 24,
+        vertical: isMobile ? 20 : 24,
       ),
       child: isMobile
-          ? Column(
+          ? GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 3.0,
               children: _features
-                  .map((f) => Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: FeatureCard(
-                            icon: f.$1, title: f.$2, subtitle: f.$3),
-                      ))
+                  .map((f) => FeatureCard(icon: f.$1, title: f.$2, subtitle: f.$3))
                   .toList(),
             )
           : Row(
@@ -41,15 +43,13 @@ class FeaturesBar extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: FeatureCard(
-                            icon: f.$1, title: f.$2, subtitle: f.$3),
+                        child: FeatureCard(icon: f.$1, title: f.$2, subtitle: f.$3),
                       ),
                       if (!isLast)
                         Container(
                           width: 1,
-                          height: 60  ,
+                          height: 60,
                           color: Colors.white24,
-                          // margin: const EdgeInsets.symmetric(horizontal: 12),
                         ),
                     ],
                   ),

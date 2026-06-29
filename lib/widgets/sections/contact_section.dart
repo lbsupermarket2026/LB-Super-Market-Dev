@@ -14,15 +14,15 @@ class ContactSection extends StatelessWidget {
     return Container(
       color: AppColors.white,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 20 : 80,
-        vertical: 40,
+        horizontal: isMobile ? 16 : 80,
+        vertical: 32,
       ),
       child: isMobile
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _VisitStore(),
-                const SizedBox(height: 32),
+                const SizedBox(height: 24),
                 _ContactInfo(),
               ],
             )

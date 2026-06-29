@@ -107,16 +107,18 @@ class _MobileLayout extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        _HeroText(),
+        const SizedBox(height: 20),
         Center(
           child: Image.asset(
             AppAssets.heroBasket,
             fit: BoxFit.contain,
-            height: 160,
+            height: 180,
             errorBuilder: (_, __, ___) => const SizedBox(height: 120),
           ),
         ),
-        const SizedBox(height: 16),
-        _HeroText(),
+        // const SizedBox(height: 16),
+        // _HeroText(),
       ],
     );
   }

@@ -104,17 +104,24 @@ class _NarrowFooterTop extends StatelessWidget {
       children: [
         _BrandColumn(),
         const SizedBox(height: 24),
-        _FooterLinksColumn(
-          title: 'Quick Links',
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _FooterNavLink('Home', AppRouter.home),
-            _FooterNavLink('About Us', AppRouter.about),
-            _FooterNavLink('Contact', AppRouter.contact),
-            _FooterFaqLink(),
+            Expanded(
+              child: _FooterLinksColumn(
+                title: 'Quick Links',
+                children: [
+                  _FooterNavLink('Home', AppRouter.home),
+                  _FooterNavLink('About Us', AppRouter.about),
+                  _FooterNavLink('Contact', AppRouter.contact),
+                  _FooterFaqLink(),
+                ],
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(child: _DownloadColumn()),
           ],
         ),
-        const SizedBox(height: 16),
-        _DownloadColumn(),
       ],
     );
   }
@@ -429,7 +436,10 @@ class _StoreBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width < 700 ? 16 : 40,
+        vertical: 28,
+      ),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white30),
         borderRadius: BorderRadius.circular(6),

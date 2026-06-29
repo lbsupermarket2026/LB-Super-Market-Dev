@@ -14,68 +14,58 @@ class AboutSection extends StatelessWidget {
     return Container(
       color: AppColors.white,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : 80,
-        vertical: 24,
+        horizontal: isMobile ? 20 : 80,
+        vertical: 32,
       ),
       child: Column(
         children: [
-          // Title
           Text(AppStrings.aboutTitle,
               style: Theme.of(context).textTheme.titleLarge),
           Container(
-            margin: const EdgeInsets.only(top: 6, bottom: 16),
+            margin: const EdgeInsets.only(top: 6, bottom: 20),
             width: 80,
             height: 3,
             color: AppColors.secondary,
           ),
-
-          // Logo + Text Row
           isMobile
               ? Column(
-                  children: [_Logo(), const SizedBox(height: 16), _AboutText()],
+                  children: [
+                    Image.asset(AppAssets.logo,
+                        height: 100,
+                        errorBuilder: (_, __, ___) => const Icon(
+                            Icons.shopping_cart,
+                            color: AppColors.primary,
+                            size: 80)),
+                    const SizedBox(height: 16),
+                    Text(AppStrings.aboutBody,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(height: 1.8),
+                        textAlign: TextAlign.center),
+                  ],
                 )
               : Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _Logo(),
-                    const SizedBox(width: 36),
-                    Expanded(child: _AboutText()),
+                    Image.asset(AppAssets.logo,
+                        height: 160,
+                        errorBuilder: (_, __, ___) => const Icon(
+                            Icons.shopping_cart,
+                            color: AppColors.primary,
+                            size: 100)),
+                    const SizedBox(width: 48),
+                    Expanded(
+                      child: Text(AppStrings.aboutBody,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(height: 1.8, fontSize: 16)),
+                    ),
                   ],
                 ),
         ],
       ),
-    );
-  }
-}
-
-class _Logo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(
-      AppAssets.logo,
-      height: 140,
-      errorBuilder: (_, __, ___) => Column(
-        children: const [
-          Icon(Icons.shopping_cart, color: AppColors.primary, size: 80),
-          SizedBox(height: 6),
-          Text(AppStrings.logoText,
-              style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 14,
-                  color: AppColors.textDark)),
-        ],
-      ),
-    );
-  }
-}
-
-class _AboutText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      AppStrings.aboutBody,
-      style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.7, fontSize: 14),
-      textAlign: TextAlign.justify,
     );
   }
 }

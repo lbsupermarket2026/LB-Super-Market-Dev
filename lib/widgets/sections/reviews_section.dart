@@ -29,14 +29,19 @@ class _ReviewsSectionState extends State<ReviewsSection> {
 
   @override
   void initState() {
-    super.initState();
-    _pageController = PageController(
-      initialPage: _initialPage,
-      viewportFraction: 0.26,
-    );
-    _currentPage = _initialPage;
+  super.initState();
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    setState(() {
+      _pageController = PageController(
+        initialPage: _initialPage,
+        viewportFraction: isMobile ? 0.88 : 0.28,
+      );
+      _currentPage = _initialPage;
+    });
     _startTimer();
-  }
+  });
+}
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 4), (_) {
@@ -148,23 +153,26 @@ class _ReviewsSectionState extends State<ReviewsSection> {
               _ArrowBtn(icon: Icons.chevron_left, onTap: _prev),
 
               Expanded(
-                child: SizedBox(
-                  height: 220,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: _items.length,
-                    onPageChanged: _onPageChanged,
-                    itemBuilder: (_, i) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: ReviewCard(review: _items[i]),
+                  child: SizedBox(
+                    height: 220,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: _items.length,
+                      onPageChanged: _onPageChanged,
+                      itemBuilder: (_, i) => Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width < 600 ? 4 : 8,
+                        ),
+                        child: ReviewCard(review: _items[i]),
+                      ),
                     ),
                   ),
                 ),
-              ),
 
               _ArrowBtn(icon: Icons.chevron_right, onTap: _next),
             ],
           ),
+
 
           const SizedBox(height: 20),
 
