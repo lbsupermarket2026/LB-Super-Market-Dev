@@ -3,6 +3,7 @@ import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
 import '../../app/router.dart';
 import '../../core/utils/url_launcher.dart';
+import '../../core/responsive/breakpoints.dart';
 
 class Navbar extends StatelessWidget implements PreferredSizeWidget {
   const Navbar({super.key});
@@ -77,7 +78,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
           if (!isNarrow) ...[
             _NavLink('Home', AppRouter.home),
             _NavLink('Catalog', AppRouter.catalog),
-            _NavLink('Offers', AppRouter.offers),
+            // const _OffersLink(),
             _NavLink('About Us', AppRouter.about),
             _NavLink('Contact', AppRouter.contact),
             const SizedBox(width: 20),
@@ -195,13 +196,91 @@ class _NavLink extends StatelessWidget {
   }
 }
 
+class _OffersLink extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () => Breakpoints.isDesktop(context)
+              ? _showQrDialog(context)
+              : UrlLauncherUtil.openPlayStore(),
+          child: const Text('Offers',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white)),
+        ),
+      ),
+    );
+  }
+
+  void _showQrDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Download Our App',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 8),
+            const Text('Scan the QR code to view exclusive offers\non Balaramayya Super Market app',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13, color: Colors.grey)),
+            const SizedBox(height: 20),
+            Container(
+              width: 160,
+              height: 160,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade200),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.qr_code_2, size: 130, color: Colors.black87),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      UrlLauncherUtil.openPlayStore();
+                    },
+                    child: const Text('Google Play'),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      UrlLauncherUtil.openAppStore();
+                    },
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                    child: const Text('App Store'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _MobileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final links = [
       ('Home', AppRouter.home),
       ('Catalog', AppRouter.catalog),
-      ('Offers', AppRouter.offers),
+      // ('Offers', AppRouter.offers),
       ('About Us', AppRouter.about),
       ('Contact', AppRouter.contact),
     ];
