@@ -5,6 +5,7 @@ import '../../data/category_data.dart';
 import '../../core/utils/url_launcher.dart';
 import '../../widgets/common/navbar.dart';
 import '../../widgets/common/footer.dart';
+import '../../widgets/cards/category_card.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
@@ -132,66 +133,17 @@ class CategoriesPage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: isMobile ? 2 : 4,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 24,
-                      childAspectRatio: 0.95,
+                      crossAxisCount: isMobile ? 2 : 3,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 0.85,
                     ),
                     itemCount: CategoryData.categories.length,
-                    itemBuilder: (context, index) {
-                      final cat = CategoryData.categories[index];
-
-                      return InkWell(
-                        borderRadius: BorderRadius.circular(18),
-                        onTap: () {
-                          UrlLauncherUtil.openPlayStore();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(18),
-                            border: Border.all(color: Colors.grey.shade200),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.06),
-                                blurRadius: 12,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 110,
-                                  child: Image.asset(
-                                    cat.imagePath,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (_, __, ___) => const Icon(
-                                      Icons.shopping_basket_outlined,
-                                      size: 50,
-                                      color: AppColors.primary,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 18),
-                                Text(
-                                  cat.name,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.textDark,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                    itemBuilder: (_, i) {
+                      final cat = CategoryData.categories[i];
+                      return CategoryCard(
+                        category: cat,
+                        onTap: () => Navigator.pushNamed(context, '/catalog'),
                       );
                     },
                   ),
