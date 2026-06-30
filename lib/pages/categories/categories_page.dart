@@ -133,82 +133,61 @@ class CategoriesPage extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: isMobile ? 2 : 4,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 0.85,
+                      crossAxisSpacing: 24,
+                      mainAxisSpacing: 24,
+                      childAspectRatio: 0.95,
                     ),
                     itemCount: CategoryData.categories.length,
-                    itemBuilder: (_, i) {
-                      final cat = CategoryData.categories[i];
-                      return GestureDetector(
-                        onTap: () => Breakpoints.isDesktop(context)
-                            ? _showQrDialog(context)
-                            : UrlLauncherUtil.openPlayStore(),
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.08),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
+                    itemBuilder: (context, index) {
+                      final cat = CategoryData.categories[index];
+
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(18),
+                        onTap: () {
+                          UrlLauncherUtil.openPlayStore();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(color: Colors.grey.shade200),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.06),
+                                blurRadius: 12,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Expanded(
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(12),
-                                      topRight: Radius.circular(12),
-                                    ),
-                                    child: Image.asset(
-                                      cat.imagePath,
-                                      width: double.infinity,
-                                      fit: BoxFit.contain,
-                                      errorBuilder: (_, __, ___) => Container(
-                                        color: AppColors.background,
-                                        child: const Icon(
-                                            Icons.shopping_basket_outlined,
-                                            color: AppColors.primary,
-                                            size: 36),
-                                      ),
+                                SizedBox(
+                                  height: 110,
+                                  child: Image.asset(
+                                    cat.imagePath,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (_, __, ___) => const Icon(
+                                      Icons.shopping_basket_outlined,
+                                      size: 50,
+                                      color: AppColors.primary,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 8),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                                  child: Text(
-                                    cat.name,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.textDark,
-                                      height: 1.3,
-                                    ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
+                                const SizedBox(height: 18),
+                                Text(
+                                  cat.name,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.textDark,
                                   ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                const SizedBox(height: 8),
-                                Container(
-                                  width: 28,
-                                  height: 28,
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.dark,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(Icons.arrow_forward,
-                                      color: AppColors.white, size: 14),
-                                ),
-                                const SizedBox(height: 10),
                               ],
                             ),
                           ),

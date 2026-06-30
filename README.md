@@ -19,3 +19,13 @@ samples, guidance on mobile development, and a full API reference.
 Remove-Item -Recurse -Force build
 flutter create .     
 flutter run -d chrome   
+
+
+github hosting
+cd "C:\Users\nikit\OneDrive\Desktop\BB Price\build\web"
+git init
+git add .
+git commit -m "mobile fixes"
+git branch -M main
+git remote add origin https://github.com/Nikita-Pallantla/BB-Price.git
+git push origin main --force

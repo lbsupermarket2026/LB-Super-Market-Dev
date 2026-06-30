@@ -5,6 +5,8 @@ import '../../data/product_data.dart';
 import '../../widgets/common/navbar.dart';
 import '../../widgets/common/footer.dart';
 import '../../widgets/cards/product_card.dart';
+import '../../data/category_data.dart';
+import '../../core/utils/url_launcher.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -54,77 +56,70 @@ class _ProductsPageState extends State<ProductsPage> {
             // Search + Filter
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 16 : 48, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Search bar
-                  TextField(
-                    controller: _searchCtrl,
-                    onChanged: (v) => setState(() => _searchQuery = v),
-                    decoration: InputDecoration(
-                      hintText: 'Search products...',
-                      prefixIcon:
-                          const Icon(Icons.search, color: AppColors.primary),
-                      filled: true,
-                      fillColor: AppColors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: AppColors.divider),
+                horizontal: isMobile ? 20 : 80,
+                vertical: 60,
+              ),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: CategoryData.categories.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: isMobile ? 2 : 4,
+                  crossAxisSpacing: 28,
+                  mainAxisSpacing: 28,
+                  childAspectRatio: .95,
+                ),
+                itemBuilder: (_, index) {
+                  final cat = CategoryData.categories[index];
+
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () {
+                      UrlLauncherUtil.openPlayStore();
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.grey.shade200,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 16,
+                            color: Colors.black.withOpacity(.06),
+                            offset: const Offset(0, 6),
+                          )
+                        ],
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: AppColors.divider),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: AppColors.primary),
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 120,
+                              child: Image.asset(
+                                cat.imagePath,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            const SizedBox(height: 22),
+                            Text(
+                              cat.name,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-
-
-                  const SizedBox(height: 24),
-
-                  // Results count
-                  Text(
-                    '${_filteredProducts.length} products found',
-                    style: const TextStyle(
-                        fontSize: 13, color: AppColors.textGrey),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Products Grid
-                  _filteredProducts.isEmpty
-                      ? const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(40),
-                            child: Text(
-                              'No products found.',
-                              style:
-                                  TextStyle(color: AppColors.textGrey),
-                            ),
-                          ),
-                        )
-                      : GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: isMobile ? 2 : 4,
-                            crossAxisSpacing: 14,
-                            mainAxisSpacing: 14,
-                            childAspectRatio: 0.65,
-                          ),
-                          itemCount: _filteredProducts.length,
-                          itemBuilder: (_, i) =>
-                              ProductCard(product: _filteredProducts[i]),
-                        ),
-                ],
+                  );
+                },
               ),
             ),
 
@@ -139,22 +134,40 @@ class _ProductsPageState extends State<ProductsPage> {
 class _PageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isMobile = Breakpoints.isMobile(context);
+
     return Container(
       width: double.infinity,
-      color: AppColors.dark,
-      padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 32),
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 50 : 70,
+      ),
+      color: const Color(0xffF8F9FB),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Our Catalog',
-              style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.white)),
-          const SizedBox(height: 6),
-          Text('Fresh products at the best prices',
-              style: TextStyle(
-                  fontSize: 14, color: Colors.white.withOpacity(0.7))),
+          Text(
+            "Our Categories",
+            style: TextStyle(
+              fontSize: isMobile ? 30 : 42,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            width: 80,
+            height: 4,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            "Browse all our grocery categories",
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey.shade600,
+            ),
+          ),
         ],
       ),
     );
