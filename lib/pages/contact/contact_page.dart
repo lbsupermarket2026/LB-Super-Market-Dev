@@ -350,11 +350,11 @@ class _ContactForm extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
               ),
-             icon: Image.asset(
-              'assets/icons/whatsapp.png',
-              width: 40,
-              height: 40,
-            ),
+            //  icon: Image.asset(
+            //   'assets/icons/whatsapp.png',
+            //   width: 40,
+            //   height: 40,
+            // ),
               label: const Text(
                 'Send via WhatsApp',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
