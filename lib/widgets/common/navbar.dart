@@ -17,10 +17,10 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
     final isNarrow = w < 900;
 
     return Container(
-      height: 68,
+      height: 100,
       decoration: BoxDecoration(
         color: AppColors.dark,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 8)],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 2)],
       ),
       padding: EdgeInsets.symmetric(horizontal: w > 1200 ? 60 : 24),
       child: Row(
@@ -36,7 +36,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
             ),
             child: Row(
               children: [
-                Image.asset('assets/logos/bs_logo.png', height: 102,
+                Image.asset('assets/logos/bs_logo.png', height: 62,
                     errorBuilder: (_, __, ___) => Row(
                       children: [
                         Container(

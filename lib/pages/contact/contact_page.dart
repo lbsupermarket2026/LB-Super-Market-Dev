@@ -45,7 +45,8 @@ class _ContactPageState extends State<ContactPage> {
             // Header
             Container(
               width: double.infinity,
-              color: AppColors.dark,
+              // color: const Color.fromARGB(255, 254, 254, 254),
+              color: AppColors.background,
               padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,12 +55,12 @@ class _ContactPageState extends State<ContactPage> {
                       style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.white)),
+                          color: Color.fromARGB(255, 8, 8, 8))),
                   const SizedBox(height: 6),
                   Text('We are here to help you',
                       style: TextStyle(
                           fontSize: 15,
-                          color: Colors.white.withOpacity(0.7))),
+                          color: const Color.fromARGB(255, 2, 2, 2).withOpacity(0.7))),
                 ],
               ),
             ),
@@ -401,7 +402,7 @@ class _Field extends StatelessWidget {
             hintText: hint,
             hintStyle: const TextStyle(color: AppColors.textLight, fontSize: 13),
             filled: true,
-            fillColor: AppColors.background,
+            fillColor: const Color.fromARGB(255, 248, 248, 248),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: AppColors.divider),

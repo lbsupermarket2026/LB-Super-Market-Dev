@@ -22,7 +22,8 @@ class AboutPage extends StatelessWidget {
             // Hero Banner
             Container(
               width: double.infinity,
-              color: AppColors.dark,
+              // color: const Color.fromARGB(255, 255, 254, 254),
+              color: AppColors.background,
               padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,12 +32,12 @@ class AboutPage extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.white)),
+                          color: Color.fromARGB(255, 0, 0, 0))),
                   const SizedBox(height: 6),
                   Text('Your trusted neighborhood supermarket',
                       style: TextStyle(
                           fontSize: 15,
-                          color: Colors.white.withOpacity(0.7))),
+                          color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7))),
                 ],
               ),
             ),

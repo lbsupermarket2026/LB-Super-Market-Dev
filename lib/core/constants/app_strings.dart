@@ -1,6 +1,6 @@
 class AppStrings {
   // Brand
-  static const String appName = 'Balaramayya Super Market';
+  static const String appName = 'LB Super Market';
   static const String appTagline = 'Your trusted supermarket for everyday needs.';
   static const String logoText = 'BALARAMAYYA';
 

@@ -49,7 +49,7 @@ class AboutSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(AppAssets.logo,
-                        height: 160,
+                        height: 120,
                         errorBuilder: (_, __, ___) => const Icon(
                             Icons.shopping_cart,
                             color: AppColors.primary,
