@@ -37,18 +37,20 @@ class FeaturesBar extends StatelessWidget {
                   .toList(),
             )
           : Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: _features.map((f) {
                 final isLast = f == _features.last;
                 return Expanded(
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
                         child: FeatureCard(icon: f.$1, title: f.$2, subtitle: f.$3),
                       ),
                       if (!isLast)
                         Container(
-                          width: 1,
-                          height: 60,
+                          width: 0,
+                          height: 40,
                           color: Colors.white24,
                         ),
                     ],

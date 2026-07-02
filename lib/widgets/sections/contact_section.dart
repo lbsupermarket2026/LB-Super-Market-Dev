@@ -81,11 +81,14 @@ class _VisitStore extends StatelessWidget {
               const SizedBox(height: 8),
               GestureDetector(
                 onTap: UrlLauncherUtil.openMaps,
-                child: const Text(AppStrings.getDirections,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w600)),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: const Text(AppStrings.getDirections,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600)),
+                ),
               ),
             ],
           ),
@@ -195,8 +198,8 @@ class _ContactTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 42,
-              height: 42,
+              width: 52,
+              height: 52,
               decoration: BoxDecoration(
                 color: AppColors.background,
                 borderRadius: BorderRadius.circular(10),
@@ -207,15 +210,15 @@ class _ContactTile extends StatelessWidget {
                 ? Center(
                     child: Image.asset(
                       imagePath!,
-                      width: 62,   // Increase this value
-                      height: 62,  // Increase this value
+                      width: 50,
+                      height: 50,
                       fit: BoxFit.contain,
                     ),
                   )
                   : Icon(
                       icon,
                       color: AppColors.primary,
-                      size: 20,
+                      size: 26,
                     ),
             ),
             const SizedBox(width: 10),

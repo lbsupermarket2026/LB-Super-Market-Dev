@@ -23,13 +23,13 @@ class AboutPage extends StatelessWidget {
             Container(
               width: double.infinity,
               color: AppColors.dark,
-              padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('About Us',
                       style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 28,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white)),
                   const SizedBox(height: 6),

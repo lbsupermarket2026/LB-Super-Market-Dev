@@ -207,54 +207,57 @@ class _InfoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 42,
-            height: 42,
-            decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: imagePath != null
-                  ? Image.asset(
-                      imagePath!,
-                      width: 24,
-                      height: 24,
-                      fit: BoxFit.contain,
-                    )
-                  : Icon(
-                      icon,
-                      color: AppColors.primary,
-                      size: 20,
-                    ),
-            ),
-          ),
-          const SizedBox(width: 14),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textDark,
-                ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                color: AppColors.primary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
               ),
-              const SizedBox(height: 3),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: AppColors.primary,
-                ),
+              child: Center(
+                child: imagePath != null
+                    ? Image.asset(
+                        imagePath!,
+                        width: 30,
+                        height: 30,
+                        fit: BoxFit.contain,
+                      )
+                    : Icon(
+                        icon,
+                        color: AppColors.primary,
+                        size: 20,
+                      ),
               ),
-            ],
-          ),
-        ],
+            ),
+            const SizedBox(width: 14),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textDark,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -349,8 +352,8 @@ class _ContactForm extends StatelessWidget {
               ),
              icon: Image.asset(
               'assets/icons/whatsapp.png',
-              width: 20,
-              height: 20,
+              width: 40,
+              height: 40,
             ),
               label: const Text(
                 'Send via WhatsApp',

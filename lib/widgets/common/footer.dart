@@ -4,6 +4,7 @@ import '../../core/constants/app_strings.dart';
 import '../../core/constants/app_assets.dart';
 import '../../app/router.dart';
 import '../../core/utils/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -37,9 +38,9 @@ class Footer extends StatelessWidget {
                 'Developed by Matric Services',
                 style: TextStyle(
                   fontSize: 11,
-                  color: Colors.white38,
+                  color: Colors.white54,
                   decoration: TextDecoration.underline,
-                  decorationColor: Colors.white38,
+                  decorationColor: Colors.white54,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -67,8 +68,7 @@ class _WideFooterTop extends StatelessWidget {
             title: 'Quick Links',
             children: [
               _FooterNavLink('Home', AppRouter.home),
-              _FooterNavLink('Catalog', AppRouter.catalog, redirectToApp: true),
-              _FooterNavLink('Offers', AppRouter.offers, redirectToApp: true),
+              _FooterNavLink('Catalog', AppRouter.catalog),
               _FooterNavLink('About Us', AppRouter.about),
               _FooterNavLink('Contact', AppRouter.contact),
             ],
@@ -136,8 +136,8 @@ class _BrandColumn extends StatelessWidget {
         // Logo
         Row(
           children: [
-            Image.asset('assets/logos/bs_logo.png', height: 52,
-                errorBuilder: (_, __, ___) => Row(
+            Image.asset('assets/logos/bs_logo.png', height: 44,
+              errorBuilder: (_, __, ___) => Row(
                   children: [
                     Container( 
                       width: 44,
@@ -184,11 +184,13 @@ class _BrandColumn extends StatelessWidget {
         const SizedBox(height: 10),
         Row(
           children: [
-            _SocialIcon(Icons.facebook, UrlLauncherUtil.openFacebook),
+            _SocialIcon(FontAwesomeIcons.instagram, UrlLauncherUtil.openInstagram),
             const SizedBox(width: 10),
-            _SocialIcon(Icons.camera_alt_outlined, UrlLauncherUtil.openInstagram),
-            const SizedBox(width: 10),
-            _SocialIcon(Icons.chat, UrlLauncherUtil.openWhatsApp),
+            // _SocialIcon(FontAwesomeIcons.whatsapp, UrlLauncherUtil.openWhatsApp),
+            _AssetSocialIcon(
+              'assets/icons/whatsapp.png',
+              UrlLauncherUtil.openWhatsApp,
+            ),
           ],
         ),
       ],
@@ -384,7 +386,8 @@ class _FooterFaqLink extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
-                  icon: const Icon(Icons.chat, size: 16),
+                  // icon: const Icon(Icons.chat, size: 16),
+                  icon: Image.asset('assets/icons/whatsapp.png', width: 22, height: 22),
                   label: const Text('Still have questions? WhatsApp us',
                       style: TextStyle(fontWeight: FontWeight.w600)),
                 ),
@@ -411,18 +414,26 @@ class _DownloadColumn extends StatelessWidget {
         const SizedBox(height: 14),
         GestureDetector(
           onTap: UrlLauncherUtil.openPlayStore,
-          child: Image.asset(AppAssets.googlePlay,
-              height: 38,
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => _StoreBtn('Google Play')),
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Image.asset(AppAssets.googlePlay,
+                height: 32,
+                width: 120,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => _StoreBtn('Google Play')),
+          ),
         ),
         const SizedBox(height: 10),
         GestureDetector(
           onTap: UrlLauncherUtil.openAppStore,
-          child: Image.asset(AppAssets.appStore,
-              height: 38,
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => _StoreBtn('App Store')),
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Image.asset(AppAssets.appStore,
+                height: 32,
+                width: 120,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => _StoreBtn('App Store')),
+          ),
         ),
       ],
     );
@@ -436,16 +447,19 @@ class _StoreBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width < 700 ? 16 : 40,
-        vertical: 28,
-      ),
+      width: 160,
+      height: 52,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white30),
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(8),
       ),
+      alignment: Alignment.center,
       child: Text(label,
-          style: const TextStyle(color: Colors.white, fontSize: 12)),
+          style: const TextStyle(
+              color: Colors.white,
+              fontSize: 13,
+              fontWeight: FontWeight.w600)),
     );
   }
 }
@@ -459,14 +473,50 @@ class _SocialIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 34,
-        height: 34,
-        decoration: BoxDecoration(
-          color: Colors.white12,
-          borderRadius: BorderRadius.circular(6),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(
+            color: Colors.white12,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: Colors.white, size: 22),
         ),
-        child: Icon(icon, color: Colors.white, size: 16),
+      ),
+    );
+  }
+}
+
+class _AssetSocialIcon extends StatelessWidget {
+  final String assetPath;
+  final VoidCallback onTap;
+
+  const _AssetSocialIcon(this.assetPath, this.onTap);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(
+            color: Colors.white12,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: Image.asset(
+              assetPath,
+              width: 36,
+              height: 36,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
       ),
     );
   }

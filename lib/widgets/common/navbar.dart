@@ -26,16 +26,22 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         children: [
           // Logo
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, AppRouter.home),
+          MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRouter.home,
+              (route) => false,
+            ),
             child: Row(
               children: [
-                Image.asset('assets/logos/bs_logo.png', height: 132,
+                Image.asset('assets/logos/bs_logo.png', height: 102,
                     errorBuilder: (_, __, ___) => Row(
                       children: [
                         Container(
-                          width: 44,
-                          height: 44,
+                          width: 124,
+                          height: 124,
                           decoration: BoxDecoration(
                             color: AppColors.primary,
                             borderRadius: BorderRadius.circular(8),
@@ -68,9 +74,11 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                           ],
                         ),
                       ],
+                  
                     )),
               ],
             ),
+          ),
           ),
 
           const Spacer(),

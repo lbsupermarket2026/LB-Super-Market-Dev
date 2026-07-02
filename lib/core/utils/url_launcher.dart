@@ -16,6 +16,6 @@ class UrlLauncherUtil {
   static Future<void> openPlayStore() => _launch(AppStrings.playStoreUrl);
   static Future<void> openAppStore() => _launch(AppStrings.appStoreUrl);
   static Future<void> openFacebook() => _launch('https://facebook.com');
-  static Future<void> openInstagram() => _launch('https://instagram.com');
+  static Future<void> openInstagram() => _launch('https://www.instagram.com/balaramayyasupermarket?igsh=ZjRsNHVkNWN1anc1');
   static Future<void> openMatric() => _launch('https://www.matricservices.in/');
 }

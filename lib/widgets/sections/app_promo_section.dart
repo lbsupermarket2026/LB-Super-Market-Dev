@@ -40,13 +40,13 @@ class _DesktopPromo extends StatelessWidget {
       children: [
         // Phone icon
         Container(
-          width: 54,
-          height: 54,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
             color: AppColors.primary.withOpacity(0.15),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(Icons.phone_android, color: AppColors.primary, size: 30),
+          child: const Icon(Icons.phone_android, color: AppColors.primary, size: 22),
         ),
         const SizedBox(width: 18),
 
@@ -72,6 +72,7 @@ class _DesktopPromo extends StatelessWidget {
 
         const SizedBox(width: 24),
 
+        // Inline download row: QR + store badges
         // Inline download row: QR + store badges
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,7 +100,7 @@ class _DesktopPromo extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(width: 14),
+            const SizedBox(width: 6), // <-- reduced from 14
 
             // Store badges
             Column(
@@ -108,16 +109,22 @@ class _DesktopPromo extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: UrlLauncherUtil.openPlayStore,
-                  child: Image.asset(AppAssets.googlePlay,
-                      width: 130, height: 40, fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const _Badge('Google Play')),
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Image.asset(AppAssets.googlePlay,
+                        width: 120, height: 32, fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const _Badge('Google Play')),
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6), // <-- reduced from 8
                 GestureDetector(
                   onTap: UrlLauncherUtil.openAppStore,
-                  child: Image.asset(AppAssets.appStore,
-                      width: 130, height: 40, fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const _Badge('App Store')),
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Image.asset(AppAssets.appStore,
+                        width: 120, height: 32, fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const _Badge('App Store')),
+                  ),
                 ),
               ],
             ),
@@ -165,16 +172,22 @@ class _MobilePromo extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: UrlLauncherUtil.openPlayStore,
-                    child: Image.asset(AppAssets.googlePlay,
-                        width: 120, height: 36, fit: BoxFit.contain,
-                        errorBuilder: (_, __, ___) => _Badge('Google Play')),
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Image.asset(AppAssets.googlePlay,
+                          width: 70, height: 28, fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) => _Badge('Google Play')),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   GestureDetector(
                     onTap: UrlLauncherUtil.openAppStore,
-                    child: Image.asset(AppAssets.appStore,
-                        width: 120, height: 36, fit: BoxFit.contain,
-                        errorBuilder: (_, __, ___) => _Badge('App Store')),
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Image.asset(AppAssets.appStore,
+                          width: 70, height: 28, fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) => _Badge('App Store')),
+                    ),
                   ),
                 ],
               ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../app/app.dart';
+import 'package:flutter/gestures.dart';
+import 'app/app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  GestureBinding.instance.pointerRouter;
   runApp(const BalaramayyyaApp());
 }

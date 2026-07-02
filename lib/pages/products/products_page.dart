@@ -55,9 +55,11 @@ class _ProductsPageState extends State<ProductsPage> {
 
             // Search + Filter
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: isMobile ? 20 : 80,
-                vertical: 60,
+              padding: EdgeInsets.only(
+                left: isMobile ? 20 : 80,
+                right: isMobile ? 20 : 80,
+                top: isMobile ? 24 : 32,
+                bottom: isMobile ? 40 : 60,
               ),
               child: GridView.builder(
                 shrinkWrap: true,
@@ -65,9 +67,9 @@ class _ProductsPageState extends State<ProductsPage> {
                 itemCount: CategoryData.categories.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: isMobile ? 2 : 4,
-                  crossAxisSpacing: 28,
-                  mainAxisSpacing: 28,
-                  childAspectRatio: .95,
+                  crossAxisSpacing: isMobile ? 16 : 28,
+                  mainAxisSpacing: isMobile ? 16 : 28,
+                  childAspectRatio: isMobile ? 0.78 : .95,
                 ),
                 itemBuilder: (_, index) {
                   final cat = CategoryData.categories[index];
@@ -99,19 +101,21 @@ class _ProductsPageState extends State<ProductsPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 120,
+                              height: isMobile ? 90 : 120,
                               child: Image.asset(
                                 cat.imagePath,
                                 fit: BoxFit.contain,
                               ),
                             ),
-                            const SizedBox(height: 22),
+                            SizedBox(height: isMobile ? 12 : 22),
                             Text(
                               cat.name,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: isMobile ? 14 : 16,
                               ),
                             ),
                           ],
@@ -139,7 +143,7 @@ class _PageHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        vertical: isMobile ? 50 : 70,
+        vertical: isMobile ? 28 : 36,
       ),
       color: const Color(0xffF8F9FB),
       child: Column(
