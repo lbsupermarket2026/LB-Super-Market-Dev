@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   url_launcher: ^6.3.0
   flutter_svg: ^2.0.9
-  font_awesome_flutter: ^10.8.0
+  font_awesome_flutter: ^11.0.0
   pointer_interceptor: ^0.10.1
 
 dev_dependencies:
