@@ -465,7 +465,7 @@ class _StoreBtn extends StatelessWidget {
 }
 
 class _SocialIcon extends StatelessWidget {
-  final IconData icon;
+  final FaIconData icon;   // was: IconData
   final VoidCallback onTap;
   const _SocialIcon(this.icon, this.onTap);
 
@@ -482,7 +482,7 @@ class _SocialIcon extends StatelessWidget {
             color: Colors.white12,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: Colors.white, size: 22),
+          child: FaIcon(icon, color: Colors.white, size: 22),   // was: Icon(icon, ...)
         ),
       ),
     );
