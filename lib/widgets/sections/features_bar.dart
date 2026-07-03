@@ -31,7 +31,7 @@ class FeaturesBar extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
-              childAspectRatio: 3.0,
+              childAspectRatio: 2.2,
               children: _features
                   .map((f) => FeatureCard(icon: f.$1, title: f.$2, subtitle: f.$3))
                   .toList(),
