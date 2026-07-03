@@ -5,8 +5,10 @@ class WhatsAppService {
   /// Opens WhatsApp with a pre-filled message
   static Future<void> openChat({String message = 'Hello! I need assistance.'}) async {
     final encoded = Uri.encodeComponent(message);
-    final number = AppStrings.phone.replaceAll(RegExp(r'[^0-9]'), '');
-    final url = 'https://wa.me/91$number?text=$encoded';
+    // final number = AppStrings.phone.replaceAll(RegExp(r'[^0-9]'), '');
+    final number = '919885545708';
+    final url = 'https://wa.me/$number?text=$encoded';
+    // final url = 'https://wa.me/91$number?text=$encoded';
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);

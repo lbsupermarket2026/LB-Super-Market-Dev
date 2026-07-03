@@ -184,9 +184,11 @@ class _BrandColumn extends StatelessWidget {
         const SizedBox(height: 10),
         Row(
           children: [
-            _SocialIcon(FontAwesomeIcons.instagram, UrlLauncherUtil.openInstagram),
+            _AssetSocialIcon(
+              'assets/icons/instagram.png',
+              UrlLauncherUtil.openInstagram,
+            ),
             const SizedBox(width: 10),
-            // _SocialIcon(FontAwesomeIcons.whatsapp, UrlLauncherUtil.openWhatsApp),
             _AssetSocialIcon(
               'assets/icons/whatsapp.png',
               UrlLauncherUtil.openWhatsApp,
