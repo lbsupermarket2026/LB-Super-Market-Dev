@@ -1,8 +1,8 @@
 {
-    "name": "bb_price",
-    "short_name": "bb_price",
+    "name": "lb_price",
+    "short_name": "lb_price",
     "start_url": ".",
-    "display": "standalone",
+    "display": "browser",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "A new Flutter project.",
