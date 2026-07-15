@@ -175,14 +175,22 @@ class _ContactInfoPanel extends StatelessWidget {
         const SizedBox(height: 10),
 
         const _HoursRow(
-          'Monday – Saturday',
-          '8:00 AM – 9:00 PM',
+          'Sunday – Saturday',
+          '7:30 AM – 10:30 PM',
         ),
 
+        const SizedBox(height: 6),
+
         const _HoursRow(
-          'Sunday',
-          '9:00 AM – 6:00 PM',
+          'Delivery Timing',
+          '9:30 AM – 9:30 PM',
         ),
+
+
+        // const _HoursRow(
+        //   'Sunday',
+        //   '9:00 AM – 6:00 PM',
+        // ),
       ],
     );
   }
