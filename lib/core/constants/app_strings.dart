@@ -86,6 +86,6 @@ class AppStrings {
   static const String phoneUrl = 'tel:+919885545708';
   static const String emailUrl = 'mailto:contact@lbsupermarket.com';
   static const String playStoreUrl =
-      'https://play.google.com/store';
+      'https://play.google.com/store/apps/details?id=com.lbsupermarket.com';
   static const String appStoreUrl = 'https://apps.apple.com';
 }

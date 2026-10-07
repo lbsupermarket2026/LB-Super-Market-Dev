@@ -1,3 +1,4 @@
+import 'package:bb_price/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../models/category_model.dart';
@@ -37,7 +38,7 @@ class CategoryCard extends StatelessWidget {
                 border: Border.all(color: Colors.grey.shade200),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.qr_code_2, size: 130, color: Colors.black87),
+              child: Image.asset(AppAssets.qrCode, fit: BoxFit.contain),
             ),
             const SizedBox(height: 20),
             Row(
